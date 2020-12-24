@@ -1,26 +1,12 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang=zh>
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"www.origincat.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="软件工程的作业，让写一个计算器，为此花两天抽时间看了看Qt入门，然后就开搞了。 1环境Qt 5.13.1，MinGw 7.3.0 32-bit，IDE：Qt Creator 4.10.0 新建Qt Widgets 应用，项目名称Calculator，基类选择GWidget，类名MyWidget。 1.首先是页面，直接拖拖拖，没用栅格，先垂直在水平布局了，改了一点参数，解决问题。 2.编写信号和槽，">
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <meta name="description" content="软件工程的作业，让写一个计算器，为此花两天抽时间看了看Qt入门，然后就开搞了。 1环境Qt 5.13.1，MinGw 7.3.0 32-bit，IDE：Qt Creator 4.10.0 新建Qt Widgets 应用，项目名称Calculator，基类选择GWidget，类名MyWidget。 1.首先是页面，直接拖拖拖，没用栅格，先垂直在水平布局了，改了一点参数，解决问题。 2.编写信号和槽，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Qt(C++)实现的简易计算器">
 <meta property="og:url" content="http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/index.html">
@@ -38,180 +24,146 @@
 <meta property="article:tag" content="计算器">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://img-blog.csdnimg.cn/20190920132811166.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsZmFfSmlu,size_16,color_FFFFFF,t_70">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>Qt(C++)实现的简易计算器</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
 
-<link rel="canonical" href="http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/">
+    <!-- persian styles -->
+    
+      
+<link rel="stylesheet" href="/css/rtl.css">
 
+    
+    <!-- rss -->
+    
+    
+<meta name="generator" content="Hexo 5.3.0"></head>
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" href="/2020/10/07/2020-10-07-%E8%A7%A3%E5%8E%8B%E7%BC%A9%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%90%E9%9B%B6%E5%9F%BA%E7%A1%80%E7%89%88%E3%80%91/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" href="/2019/11/07/2019-11-07-debian10%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8git%E4%BB%93%E5%BA%93/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">上一篇</span>
+      <span id="i-next" class="info" style="display:none;">下一篇</span>
+      <span id="i-top" class="info" style="display:none;">返回顶部</span>
+      <span id="i-share" class="info" style="display:none;">分享文章</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&text=Qt(C++)实现的简易计算器"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&title=Qt(C++)实现的简易计算器"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&is_video=false&description=Qt(C++)实现的简易计算器"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Qt(C++)实现的简易计算器&body=Check out this article: http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&title=Qt(C++)实现的简易计算器"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&title=Qt(C++)实现的简易计算器"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&title=Qt(C++)实现的简易计算器"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&title=Qt(C++)实现的简易计算器"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&name=Qt(C++)实现的简易计算器&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&t=Qt(C++)实现的简易计算器"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
 
-  <title>Qt(C++)实现的简易计算器 | 猫舍</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
     </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">猫舍</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">我愚人之心也哉，沌沌兮</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E9%A6%96%E5%85%88%E6%98%AF%E9%A1%B5%E9%9D%A2%EF%BC%8C%E7%9B%B4%E6%8E%A5%E6%8B%96%E6%8B%96%E6%8B%96%EF%BC%8C%E6%B2%A1%E7%94%A8%E6%A0%85%E6%A0%BC%EF%BC%8C%E5%85%88%E5%9E%82%E7%9B%B4%E5%9C%A8%E6%B0%B4%E5%B9%B3%E5%B8%83%E5%B1%80%E4%BA%86%EF%BC%8C%E6%94%B9%E4%BA%86%E4%B8%80%E7%82%B9%E5%8F%82%E6%95%B0%EF%BC%8C%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">1.首先是页面，直接拖拖拖，没用栅格，先垂直在水平布局了，改了一点参数，解决问题。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E7%BC%96%E5%86%99%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD%EF%BC%8C%E5%B9%B6%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AE%A1%E7%AE%97%E5%99%A8%E5%8A%9F%E8%83%BD"><span class="toc-number">2.</span> <span class="toc-text">2.编写信号和槽，并代码实现计算器功能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%88%B0%E8%BF%99%E5%B0%B1%E6%B2%A1%E5%95%A5%E4%BA%86%EF%BC%8C%E6%94%B9%E4%B8%80%E4%B8%8B%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%95%A5%E7%9A%84%E6%8D%A2%E4%B8%AA%E5%9B%BE%E6%A0%87"><span class="toc-number">3.</span> <span class="toc-text">3.到这就没啥了，改一下项目文件啥的换个图标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E6%94%BE%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="toc-number">4.</span> <span class="toc-text">最后放效果图</span></a></li></ol>
     </div>
-  </div>
+  </span>
 </div>
 
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
     
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/">
+    <h1 class="posttitle" itemprop="name headline">
+        Qt(C++)实现的简易计算器
+    </h1>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="OriginCat">
-      <meta itemprop="description" content="">
-    </span>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="猫舍">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Qt(C++)实现的简易计算器
-        </h1>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">origincat</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-01-07T14:18:00.000Z" itemprop="datePublished">2020-01-07</time>
+        
+      
+    </div>
 
-              <time title="创建时间：2020-01-07 22:18:00" itemprop="dateCreated datePublished" datetime="2020-01-07T22:18:00+08:00">2020-01-07</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-12-20 23:11:10" itemprop="dateModified" datetime="2020-12-20T23:11:10+08:00">2020-12-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Qt/" itemprop="url" rel="index"><span itemprop="name">Qt</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
 
       
-        <p>软件工程的作业，让写一个计算器，为此花两天抽时间看了看Qt入门，然后就开搞了。</p>
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/Qt/">Qt</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/Qt/" rel="tag">Qt</a>, <a class="tag-link-link" href="/tags/c/" rel="tag">c++</a>, <a class="tag-link-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%99%A8/" rel="tag">计算器</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>软件工程的作业，让写一个计算器，为此花两天抽时间看了看Qt入门，然后就开搞了。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">环境Qt 5.13.1，MinGw 7.3.0 32-bit，IDE：Qt Creator 4.10.0</span><br></pre></td></tr></table></figure>
 <p>新建Qt Widgets 应用，项目名称Calculator，基类选择GWidget，类名MyWidget。</p>
 <h1 id="1-首先是页面，直接拖拖拖，没用栅格，先垂直在水平布局了，改了一点参数，解决问题。"><a href="#1-首先是页面，直接拖拖拖，没用栅格，先垂直在水平布局了，改了一点参数，解决问题。" class="headerlink" title="1.首先是页面，直接拖拖拖，没用栅格，先垂直在水平布局了，改了一点参数，解决问题。"></a>1.首先是页面，直接拖拖拖，没用栅格，先垂直在水平布局了，改了一点参数，解决问题。</h1><p><img src="https://img-blog.csdnimg.cn/20190920132811166.PNG?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0FsZmFfSmlu,size_16,color_FFFFFF,t_70" alt="界面"></p>
@@ -224,199 +176,140 @@
 <p><img src="https://img-blog.csdnimg.cn/20190920134745996.gif"></p>
 <p>最后附上所有文件的资源链接：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/alfa_jin/11790101">资源链接</a></p>
 
-    </div>
-
-    
-    
-    
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/c/" rel="tag"># c++</a>
-              <a href="/tags/Qt/" rel="tag"># Qt</a>
-              <a href="/tags/%E8%AE%A1%E7%AE%97%E5%99%A8/" rel="tag"># 计算器</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2019/11/07/2019-11-07-debian10%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8git%E4%BB%93%E5%BA%93/" rel="prev" title="debian10搭建服务器git仓库">
-      <i class="fa fa-chevron-left"></i> debian10搭建服务器git仓库
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2020/10/07/2020-10-07-%E8%A7%A3%E5%8E%8B%E7%BC%A9%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%90%E9%9B%B6%E5%9F%BA%E7%A1%80%E7%89%88%E3%80%91/" rel="next" title="解压缩软件的选择与安装【零基础版】">
-      解压缩软件的选择与安装【零基础版】 <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
   </div>
+</article>
 
-  <aside class="sidebar">
-    <div class="sidebar-inner">
 
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
       </ul>
+    </div>
 
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E9%A6%96%E5%85%88%E6%98%AF%E9%A1%B5%E9%9D%A2%EF%BC%8C%E7%9B%B4%E6%8E%A5%E6%8B%96%E6%8B%96%E6%8B%96%EF%BC%8C%E6%B2%A1%E7%94%A8%E6%A0%85%E6%A0%BC%EF%BC%8C%E5%85%88%E5%9E%82%E7%9B%B4%E5%9C%A8%E6%B0%B4%E5%B9%B3%E5%B8%83%E5%B1%80%E4%BA%86%EF%BC%8C%E6%94%B9%E4%BA%86%E4%B8%80%E7%82%B9%E5%8F%82%E6%95%B0%EF%BC%8C%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98%E3%80%82"><span class="nav-number">1.</span> <span class="nav-text">1.首先是页面，直接拖拖拖，没用栅格，先垂直在水平布局了，改了一点参数，解决问题。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E7%BC%96%E5%86%99%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD%EF%BC%8C%E5%B9%B6%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AE%A1%E7%AE%97%E5%99%A8%E5%8A%9F%E8%83%BD"><span class="nav-number">2.</span> <span class="nav-text">2.编写信号和槽，并代码实现计算器功能</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%88%B0%E8%BF%99%E5%B0%B1%E6%B2%A1%E5%95%A5%E4%BA%86%EF%BC%8C%E6%94%B9%E4%B8%80%E4%B8%8B%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%95%A5%E7%9A%84%E6%8D%A2%E4%B8%AA%E5%9B%BE%E6%A0%87"><span class="nav-number">3.</span> <span class="nav-text">3.到这就没啥了，改一下项目文件啥的换个图标</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E6%94%BE%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="nav-number">4.</span> <span class="nav-text">最后放效果图</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E9%A6%96%E5%85%88%E6%98%AF%E9%A1%B5%E9%9D%A2%EF%BC%8C%E7%9B%B4%E6%8E%A5%E6%8B%96%E6%8B%96%E6%8B%96%EF%BC%8C%E6%B2%A1%E7%94%A8%E6%A0%85%E6%A0%BC%EF%BC%8C%E5%85%88%E5%9E%82%E7%9B%B4%E5%9C%A8%E6%B0%B4%E5%B9%B3%E5%B8%83%E5%B1%80%E4%BA%86%EF%BC%8C%E6%94%B9%E4%BA%86%E4%B8%80%E7%82%B9%E5%8F%82%E6%95%B0%EF%BC%8C%E8%A7%A3%E5%86%B3%E9%97%AE%E9%A2%98%E3%80%82"><span class="toc-number">1.</span> <span class="toc-text">1.首先是页面，直接拖拖拖，没用栅格，先垂直在水平布局了，改了一点参数，解决问题。</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E7%BC%96%E5%86%99%E4%BF%A1%E5%8F%B7%E5%92%8C%E6%A7%BD%EF%BC%8C%E5%B9%B6%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%AE%A1%E7%AE%97%E5%99%A8%E5%8A%9F%E8%83%BD"><span class="toc-number">2.</span> <span class="toc-text">2.编写信号和槽，并代码实现计算器功能</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%88%B0%E8%BF%99%E5%B0%B1%E6%B2%A1%E5%95%A5%E4%BA%86%EF%BC%8C%E6%94%B9%E4%B8%80%E4%B8%8B%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6%E5%95%A5%E7%9A%84%E6%8D%A2%E4%B8%AA%E5%9B%BE%E6%A0%87"><span class="toc-number">3.</span> <span class="toc-text">3.到这就没啥了，改一下项目文件啥的换个图标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9C%80%E5%90%8E%E6%94%BE%E6%95%88%E6%9E%9C%E5%9B%BE"><span class="toc-number">4.</span> <span class="toc-text">最后放效果图</span></a></li></ol>
+    </div>
 
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-  <p class="site-author-name" itemprop="name">OriginCat</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">59</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">13</span>
-        <span class="site-state-item-name">分类</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">29</span>
-        <span class="site-state-item-name">标签</span>
-      </div>
-  </nav>
-</div>
-
-
-
-      </div>
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&text=Qt(C++)实现的简易计算器"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&title=Qt(C++)实现的简易计算器"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&is_video=false&description=Qt(C++)实现的简易计算器"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=Qt(C++)实现的简易计算器&body=Check out this article: http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&title=Qt(C++)实现的简易计算器"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&title=Qt(C++)实现的简易计算器"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&title=Qt(C++)实现的简易计算器"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&title=Qt(C++)实现的简易计算器"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&name=Qt(C++)实现的简易计算器&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://www.origincat.com/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/&t=Qt(C++)实现的简易计算器"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
 
     </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
 
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> 菜单</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> 目录</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> 分享</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> 返回顶部</a>
+    </div>
 
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">OriginCat</span>
+  </div>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
 
         
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2016-2020
+    OriginCat
   </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+         
+          <li><a href="/">首页</a></li>
+         
+          <li><a href="/about/">关于</a></li>
+         
+          <li><a href="/archives/">归档</a></li>
+         
+          <li><a href="/projects_url">项目</a></li>
+        
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+
+<link rel="stylesheet" href="/lib/justified-gallery/css/justifiedGallery.min.css">
+
+
+    <!-- jquery -->
+
+<script src="/lib/jquery/jquery.min.js"></script>
+
+
+<script src="/lib/justified-gallery/js/jquery.justifiedGallery.min.js"></script>
+
+<!-- clipboard -->
 
   
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/lib/clipboard/clipboard.min.js"></script>
 
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"复制到粘贴板!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "复制成功!");
+      e.clearSelection();
+    })
+  })
+  </script>
 
 
+<script src="/js/main.js"></script>
 
+<!-- search -->
 
+<!-- Google Analytics -->
 
+<!-- Baidu Analytics -->
 
+<!-- Umami Analytics -->
 
+<!-- Disqus Comments -->
 
-
-
-  
-
-  
 
 </body>
 </html>
