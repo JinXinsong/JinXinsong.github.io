@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://example.com/page/4/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/typeface-source-code-pro@0.0.71/index.min.css">
+
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+<meta name="generator" content="Hexo 5.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-2019-05-29-洛谷P1217_[USACO1.5]回文质数_Prime_Palindromes" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1217_%5BUSACO1.5%5D%E5%9B%9E%E6%96%87%E8%B4%A8%E6%95%B0_Prime_Palindromes/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T17:07:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1217_%5BUSACO1.5%5D%E5%9B%9E%E6%96%87%E8%B4%A8%E6%95%B0_Prime_Palindromes/">洛谷P1217 [USACO1.5]回文质数 Prime Palindromes</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check_hui</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> div)</span></span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (x != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> l = x / div;</span><br><span class="line">        <span class="keyword">int</span> r = x % <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span> (l != r) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        x = (x % div) / <span class="number">10</span>;</span><br><span class="line">        div /= <span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check_su</span><span class="params">(<span class="keyword">int</span> sum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sum &lt;= <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> sum &gt; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (sum % <span class="number">6</span> != <span class="number">1</span> &amp;&amp; sum % <span class="number">6</span> != <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">5</span>; i &lt;= <span class="built_in">sqrt</span>(sum); i += <span class="number">6</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum % i == <span class="number">0</span> || sum % (i + <span class="number">2</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> a, b, wei=<span class="number">1</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;a, &amp;b);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=a; i&lt;b+<span class="number">1</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">while</span>(i/wei &gt;= <span class="number">10</span>)&#123;</span><br><span class="line">            wei *= <span class="number">10</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(check_hui(i, wei) &amp;&amp; check_su(i))&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, i);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>&amp;&amp;是短路与，即先判断前面的，如果前面为真，则判断后面的，如果前面为假，则直接判断为假，不再判断后面。</p>
+<h4 id="关于素数判断"><a href="#关于素数判断" class="headerlink" title="关于素数判断"></a>关于素数判断</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check_su</span><span class="params">(<span class="keyword">int</span> sum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sum &lt;= <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> sum &gt; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (sum % <span class="number">6</span> != <span class="number">1</span> &amp;&amp; sum % <span class="number">6</span> != <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">5</span>; i &lt;= <span class="built_in">sqrt</span>(sum); i += <span class="number">6</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum % i == <span class="number">0</span> || sum % (i + <span class="number">2</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="关于回文数判断"><a href="#关于回文数判断" class="headerlink" title="关于回文数判断"></a>关于回文数判断</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check_hui</span><span class="params">(<span class="keyword">int</span> x)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> div = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (x / div &gt;= <span class="number">10</span>) &#123;</span><br><span class="line">        div *= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span> (x != <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="keyword">int</span> l = x / div;</span><br><span class="line">        <span class="keyword">int</span> r = x % <span class="number">10</span>;</span><br><span class="line">        <span class="keyword">if</span> (l != r) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        x = (x % div) / <span class="number">10</span>;</span><br><span class="line">        div /= <span class="number">100</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>为了降低时间复杂度，本题将变量div在主函数循环里处理了，作为参数传进来。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1217_[USACO1.5]%E5%9B%9E%E6%96%87%E8%B4%A8%E6%95%B0_Prime_Palindromes/" data-id="ckj2o0rt9001ho6p74ocr2vna" data-title="洛谷P1217 [USACO1.5]回文质数 Prime Palindromes" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2019-05-29-洛谷P1149_火柴棒等式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1149_%E7%81%AB%E6%9F%B4%E6%A3%92%E7%AD%89%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T17:05:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1149_%E7%81%AB%E6%9F%B4%E6%A3%92%E7%AD%89%E5%BC%8F/">洛谷P1149 火柴棒等式</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> number[<span class="number">10</span>] = &#123;<span class="number">6</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">5</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">3</span>, <span class="number">7</span>, <span class="number">6</span>&#125;;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">serch</span><span class="params">(<span class="keyword">int</span> a)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num = number[a % <span class="number">10</span>];</span><br><span class="line">    a /= <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">while</span>(a &gt; <span class="number">0</span>)&#123;</span><br><span class="line">        num += number[a % <span class="number">10</span>];</span><br><span class="line">        a /= <span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> num;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">check</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b, <span class="keyword">int</span> c, <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> num = <span class="number">0</span>;</span><br><span class="line">    num += serch(a);</span><br><span class="line">    <span class="keyword">if</span>(num &gt;= n) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    num += serch(b);</span><br><span class="line">    <span class="keyword">if</span>(num &gt;= n) <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    num += serch(c);</span><br><span class="line">    <span class="keyword">if</span>(num == n) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, ans = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    n -= <span class="number">4</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">1000</span>; i++)&#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">1000</span>; j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(check(i, j, i+j, n)) ans++;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, ans);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解释：如此暴力的写法竟然过了，神奇。</p>
+<p>check函数用来检查枚举的三个数是否符合，serch函数用来求出具体数的所需火柴数。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1149_%E7%81%AB%E6%9F%B4%E6%A3%92%E7%AD%89%E5%BC%8F/" data-id="ckj2o0rt6001ao6p72gnh775n" data-title="洛谷P1149 火柴棒等式" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2019-05-29-洛谷P1036_选数(C(n,k),素数判断)" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1036_%E9%80%89%E6%95%B0(C(n,k),%E7%B4%A0%E6%95%B0%E5%88%A4%E6%96%AD)/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T17:03:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1036_%E9%80%89%E6%95%B0(C(n,k),%E7%B4%A0%E6%95%B0%E5%88%A4%E6%96%AD)/">洛谷P1036 选数(C(n,k),素数判断)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">sushu</span><span class="params">(<span class="keyword">int</span> sum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sum &lt;= <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> sum &gt; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (sum % <span class="number">6</span> != <span class="number">1</span> &amp;&amp; sum % <span class="number">6</span> != <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">5</span>; i &lt;= <span class="built_in">sqrt</span>(sum); i += <span class="number">6</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum % i == <span class="number">0</span> || sum % (i + <span class="number">2</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">int</span> ans = <span class="number">0</span>, num[<span class="number">30</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> sta, <span class="keyword">int</span> end, <span class="keyword">int</span> sum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(sushu(sum)) ans++;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=sta; i&lt;end; i++)&#123;</span><br><span class="line">        solve(k<span class="number">-1</span>, i+<span class="number">1</span>, end, sum + num[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, k;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%d&quot;</span>, &amp;n, &amp;k);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;n; i++) <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;num[i]);</span><br><span class="line">    solve(k, <span class="number">0</span>, n, <span class="number">0</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d&quot;</span>, ans);</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<p>关于求n中取k个数，C(n,k)的具体取法可以用递归实现：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//k为要取的数量,sum为取的结果</span></span><br><span class="line"><span class="keyword">int</span> ans = <span class="number">0</span>, num[<span class="number">30</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">solve</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> sta, <span class="keyword">int</span> end, <span class="keyword">int</span> sum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(k == <span class="number">0</span>)&#123;</span><br><span class="line">        <span class="keyword">if</span>(sushu(sum)) ans++;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=sta; i&lt;end; i++)&#123;</span><br><span class="line">        solve(k<span class="number">-1</span>, i+<span class="number">1</span>, end, sum + num[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>关于素数的判断：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">sushu</span><span class="params">(<span class="keyword">int</span> sum)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (sum &lt;= <span class="number">3</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> sum &gt; <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (sum % <span class="number">6</span> != <span class="number">1</span> &amp;&amp; sum % <span class="number">6</span> != <span class="number">5</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">5</span>; i &lt;= <span class="built_in">sqrt</span>(sum); i += <span class="number">6</span>) &#123;</span><br><span class="line">        <span class="keyword">if</span> (sum % i == <span class="number">0</span> || sum % (i + <span class="number">2</span>) == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1036_%E9%80%89%E6%95%B0(C(n,k),%E7%B4%A0%E6%95%B0%E5%88%A4%E6%96%AD)/" data-id="ckj2o0rsy000oo6p728r7hsek" data-title="洛谷P1036 选数(C(n,k),素数判断)" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2019-05-29-洛谷P1028_数的计算" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1028_%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T16:56:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1028_%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97/">洛谷P1028 数的计算</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>递归超时，换了个循环写的</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, num[<span class="number">1005</span>]=&#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)&#123;</span><br><span class="line">        num[i] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>; j&lt;=i/<span class="number">2</span>; j++)&#123;</span><br><span class="line">            num[i] += num[j];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%d\n&quot;</span>, num[n]);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释：第n个为第1个到第n/2个的和。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1028_%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97/" data-id="ckj2o0rsw000jo6p7116se78p" data-title="洛谷P1028 数的计算" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2019-05-29-洛谷P1914_小书童——密码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1914_%E5%B0%8F%E4%B9%A6%E7%AB%A5%E2%80%94%E2%80%94%E5%AF%86%E7%A0%81/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T16:54:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1914_%E5%B0%8F%E4%B9%A6%E7%AB%A5%E2%80%94%E2%80%94%E5%AF%86%E7%A0%81/">洛谷P1914 小书童——密码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, pwlen;</span><br><span class="line">    <span class="keyword">char</span> pw[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d%s&quot;</span>, &amp;n, pw);</span><br><span class="line">    pwlen = <span class="built_in">strlen</span>(pw);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;pwlen; i++)&#123;</span><br><span class="line">        pw[i] = (pw[i] - <span class="number">97</span> + n) % <span class="number">26</span> + <span class="number">97</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, pw);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释：简单字符串，貌似是很经典的凯撒密码问题了。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1914_%E5%B0%8F%E4%B9%A6%E7%AB%A5%E2%80%94%E2%80%94%E5%AF%86%E7%A0%81/" data-id="ckj2o0rtw0031o6p7fx9a8kov" data-title="洛谷P1914 小书童——密码" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2019-05-29-洛谷P1598_垂直柱状图" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1598_%E5%9E%82%E7%9B%B4%E6%9F%B1%E7%8A%B6%E5%9B%BE/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T16:53:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1598_%E5%9E%82%E7%9B%B4%E6%9F%B1%E7%8A%B6%E5%9B%BE/">洛谷P1598 垂直柱状图</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans[<span class="number">26</span>] = &#123;<span class="number">0</span>&#125;, height = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">char</span> ch, table[<span class="number">105</span>][<span class="number">60</span>];</span><br><span class="line">    <span class="built_in">memset</span>(table, <span class="string">&#x27; &#x27;</span>, <span class="keyword">sizeof</span>(table));</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">&quot;%c&quot;</span>, &amp;ch) != EOF)</span><br><span class="line">        <span class="keyword">if</span>(ch &gt; <span class="number">64</span> &amp;&amp; ch &lt; <span class="number">91</span>) ans[ch<span class="number">-65</span>]++;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">26</span>; i++)</span><br><span class="line">        <span class="keyword">if</span>(ans[i] &gt; height) </span><br><span class="line">            height = ans[i];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">26</span>; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=height<span class="number">-1</span>; j&gt;height<span class="number">-1</span>-ans[i]; j--)</span><br><span class="line">            table[j][i*<span class="number">2</span>] = <span class="string">&#x27;*&#x27;</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;height; j++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">51</span>; i&gt;<span class="number">0</span>; i--)</span><br><span class="line">            <span class="keyword">if</span>(table[j][i<span class="number">-1</span>] == <span class="string">&#x27;*&#x27;</span>)&#123;</span><br><span class="line">                table[j][i] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;height; i++) <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, table[i]);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">65</span>; i&lt;<span class="number">90</span>; i++) <span class="built_in">printf</span>(<span class="string">&quot;%c &quot;</span>, i);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Z\n&quot;</span>);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释：画图题，没啥解释的。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1598_%E5%9E%82%E7%9B%B4%E6%9F%B1%E7%8A%B6%E5%9B%BE/" data-id="ckj2o0rtr002qo6p75ej8fui0" data-title="洛谷P1598 垂直柱状图" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2019-05-29-洛谷P1553_数字反转（升级版）" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1553_%E6%95%B0%E5%AD%97%E5%8F%8D%E8%BD%AC%EF%BC%88%E5%8D%87%E7%BA%A7%E7%89%88%EF%BC%89/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T16:51:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1553_%E6%95%B0%E5%AD%97%E5%8F%8D%E8%BD%AC%EF%BC%88%E5%8D%87%E7%BA%A7%E7%89%88%EF%BC%89/">洛谷P1553 数字反转（升级版）</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> numlen, xiaoshusign = <span class="number">0</span>, end=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> num[<span class="number">100</span>], pr[<span class="number">100</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, num);</span><br><span class="line">    numlen = <span class="built_in">strlen</span>(num);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">0</span>; i&lt;numlen+<span class="number">1</span>; i++,j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(num[i] != <span class="string">&#x27;%&#x27;</span> &amp;&amp; num[i] != <span class="string">&#x27;/&#x27;</span> &amp;&amp; num[i] != <span class="string">&#x27;.&#x27;</span> &amp;&amp; i != numlen)&#123;</span><br><span class="line">            pr[j] = num[i];</span><br><span class="line">        &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(xiaoshusign)&#123;</span><br><span class="line">                <span class="keyword">while</span>(end &lt; j &amp;&amp; pr[end] == <span class="string">&#x27;0&#x27;</span>) end++;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(j &gt; <span class="number">0</span> &amp;&amp; pr[j<span class="number">-1</span>] == <span class="string">&#x27;0&#x27;</span>) j--;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> k=j<span class="number">-1</span>; k&gt;=end; k--) <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>, pr[k]);</span><br><span class="line">            <span class="keyword">if</span>(j<span class="number">-1</span> &lt; end) <span class="built_in">printf</span>(<span class="string">&quot;0&quot;</span>);</span><br><span class="line">            j = <span class="number">-1</span>;</span><br><span class="line">            <span class="keyword">if</span>(i != numlen)&#123;</span><br><span class="line">                <span class="built_in">printf</span>(<span class="string">&quot;%c&quot;</span>, num[i]);</span><br><span class="line">                <span class="keyword">if</span>(num[i] == <span class="string">&#x27;%&#x27;</span>) <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span>(num[i] == <span class="string">&#x27;.&#x27;</span>) xiaoshusign = <span class="number">1</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解释：可以说是写的很乱七八糟东拼西凑了。</p>
+<p>1.第18行解决输出0的问题，由此产生的问题是读取%后还会输出一个0；</p>
+<p>2.为解决1中的问题，添加第22行；</p>
+<p>3.第14行是解决小数的第二个数字末尾不能为0的问题（也只有在输出小数第二个数字时才会有此问题）</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1553_%E6%95%B0%E5%AD%97%E5%8F%8D%E8%BD%AC%EF%BC%88%E5%8D%87%E7%BA%A7%E7%89%88%EF%BC%89/" data-id="ckj2o0rto002go6p7dqigey9n" data-title="洛谷P1553 数字反转（升级版）" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2019-05-29-洛谷P1308_统计单词数" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1308_%E7%BB%9F%E8%AE%A1%E5%8D%95%E8%AF%8D%E6%95%B0/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T16:50:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1308_%E7%BB%9F%E8%AE%A1%E5%8D%95%E8%AF%8D%E6%95%B0/">洛谷P1308 统计单词数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//freopen(&quot;testdata.in&quot;, &quot;r&quot;, stdin);</span></span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>, sta = <span class="number">-1</span>, xlen, ylen, i, k;</span><br><span class="line">    <span class="keyword">char</span> x[<span class="number">25</span>], y[<span class="number">2000005</span>], z[<span class="number">205</span>];</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, x);</span><br><span class="line">    getchar();</span><br><span class="line">    fgets(y, <span class="number">2000000</span>, <span class="built_in">stdin</span>);</span><br><span class="line">    xlen = <span class="built_in">strlen</span>(x);</span><br><span class="line">    ylen = <span class="built_in">strlen</span>(y);</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;xlen; i++)</span><br><span class="line">        <span class="keyword">if</span>(x[i] &gt; <span class="number">96</span> &amp;&amp; x[i] &lt; <span class="number">123</span>) x[i] = x[i] - <span class="number">32</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;ylen; i++)</span><br><span class="line">        <span class="keyword">if</span>(y[i] &gt; <span class="number">96</span> &amp;&amp; y[i] &lt; <span class="number">123</span>) y[i] = y[i] - <span class="number">32</span>;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;ylen; i++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(y[i] != <span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">            k=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">while</span>(y[i] != <span class="string">&#x27; &#x27;</span>)&#123;</span><br><span class="line">                z[k] = y[i];</span><br><span class="line">                i++;</span><br><span class="line">                k++;</span><br><span class="line">            &#125;</span><br><span class="line">            z[k] = <span class="string">&#x27;\0&#x27;</span>;</span><br><span class="line">            <span class="comment">//printf(&quot;%s, %s\n&quot;, x, z);</span></span><br><span class="line">            <span class="keyword">if</span>(k == xlen &amp;&amp; !<span class="built_in">strcmp</span>(x, z))&#123;</span><br><span class="line">                <span class="keyword">if</span>(sta &lt; <span class="number">0</span>) sta = i-k;</span><br><span class="line">                ans++;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(sta &lt; <span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">&quot;-1\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;%d %d\n&quot;</span>, ans, sta);  </span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>解释：</p>
+<p>1.由于第二行字符串有空格，所以不能scanf，用了fgets；</p>
+<p>2.这个题目的数据范围应该有误，测试点8爆栈，懒得去纠结是第一行数据的问题还是第二行数据的问题了，都直接扩到原范围2倍完美AC；</p>
+<p>3.第25行断路与先比较长度，如果长度不同就肯定不是同一个字符串，也就没必要strcmp比较是否相同，实测如果直接每个都strcmp的话，后三个测试点会超时。以及直接strcmp，测试点7用时144ms，改后9ms。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1308_%E7%BB%9F%E8%AE%A1%E5%8D%95%E8%AF%8D%E6%95%B0/" data-id="ckj2o0rtb001oo6p7bjzq7ek7" data-title="洛谷P1308 统计单词数" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2019-05-29-洛谷P1200_[USACO1.1]你的飞碟在这儿Your_Ride_Is_He…" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1200_%5BUSACO1.1%5D%E4%BD%A0%E7%9A%84%E9%A3%9E%E7%A2%9F%E5%9C%A8%E8%BF%99%E5%84%BFYour_Ride_Is_He%E2%80%A6/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T16:48:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1200_%5BUSACO1.1%5D%E4%BD%A0%E7%9A%84%E9%A3%9E%E7%A2%9F%E5%9C%A8%E8%BF%99%E5%84%BFYour_Ride_Is_He%E2%80%A6/">洛谷P1200 [USACO1.1]你的飞碟在这儿Your Ride Is He…</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> ufo[<span class="number">7</span>], person[<span class="number">7</span>];</span><br><span class="line">    <span class="keyword">int</span> a = <span class="number">1</span>, b = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s%s&quot;</span>, ufo, person);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">long</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="built_in">strlen</span>(ufo); i++)</span><br><span class="line">        a *= (ufo[i] - <span class="number">64</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">long</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="built_in">strlen</span>(person); i++)</span><br><span class="line">        b *= (person[i] - <span class="number">64</span>);</span><br><span class="line">    <span class="keyword">if</span>(a % <span class="number">47</span> == b % <span class="number">47</span>) <span class="built_in">printf</span>(<span class="string">&quot;GO\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;STAY\n&quot;</span>);</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释：简单字符串，上一题是0对应的ascii码表值为48，这一题是大写A对应的ascii码表值为65，另外strlen()函数返回值为无符号长整形数，直接int i=0会报警告。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1200_[USACO1.1]%E4%BD%A0%E7%9A%84%E9%A3%9E%E7%A2%9F%E5%9C%A8%E8%BF%99%E5%84%BFYour_Ride_Is_He%E2%80%A6/" data-id="ckj2o0rt7001do6p7erjh32hg" data-title="洛谷P1200 [USACO1.1]你的飞碟在这儿Your Ride Is He…" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-2019-05-29-洛谷P1055_ISBN号码" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1055_ISBN%E5%8F%B7%E7%A0%81/" class="article-date">
+  <time class="dt-published" datetime="2019-05-28T16:38:00.000Z" itemprop="datePublished">2019-05-29</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1055_ISBN%E5%8F%B7%E7%A0%81/">洛谷P1055 ISBN号码</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">char</span> isbn[<span class="number">15</span>];</span><br><span class="line">    <span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, isbn);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>,j=<span class="number">1</span>;i&lt;<span class="number">11</span>;i++,j++)&#123;</span><br><span class="line">        <span class="keyword">if</span>(i == <span class="number">1</span> || i == <span class="number">5</span>)&#123;</span><br><span class="line">            j--;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        ans += (isbn[i] - <span class="number">48</span>) * j;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(ans % <span class="number">11</span> == <span class="number">10</span>) ans = <span class="number">88</span>;</span><br><span class="line">    <span class="keyword">else</span> ans = ans % <span class="number">11</span> + <span class="number">48</span>;</span><br><span class="line">    <span class="keyword">if</span>(isbn[<span class="number">12</span>] == ans) <span class="built_in">printf</span>(<span class="string">&quot;Right\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        isbn[<span class="number">12</span>] = ans;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, isbn);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>解释：简单字符串，关键字符对应的ascii码表值要记住，0为48。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2019/05/29/2019-05-29-%E6%B4%9B%E8%B0%B7P1055_ISBN%E5%8F%B7%E7%A0%81/" data-id="ckj2o0rt2000wo6p7aasv0wme" data-title="洛谷P1055 ISBN号码" class="article-share-link">Share</a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Qt/">Qt</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c/">c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/git/">git</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/git/linux/">linux</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/kindle/">kindle</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/python/">python</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/">工具</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/vscode/">vscode</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/vscode/c/">c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%B7%A5%E5%85%B7/vscode/python/">python</a></li></ul></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%B4%9B%E8%B0%B7/">洛谷</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E9%BB%91%E8%8B%B9%E6%9E%9C/">黑苹果</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/BCM94352HMB/" rel="tag">BCM94352HMB</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Big-Sur/" rel="tag">Big Sur</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/C/" rel="tag">C</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Qt/" rel="tag">Qt</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/c/" rel="tag">c++</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/debian10/" rel="tag">debian10</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/excel/" rel="tag">excel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/git/" rel="tag">git</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/" rel="tag">hexo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/kindle/" rel="tag">kindle</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/macOS/" rel="tag">macOS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/powershell/" rel="tag">powershell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/" rel="tag">vscode</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" rel="tag">二分查找</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%88%B7%E9%A2%98/" rel="tag">刷题</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%A4%A7%E5%AD%A6%E8%AF%BE%E7%A8%8B/" rel="tag">大学课程</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%96%B0%E6%89%8B/" rel="tag">新手</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%99%AE%E5%8F%8A/" rel="tag">普及</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E6%B4%9B%E8%B0%B7/" rel="tag">洛谷</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%80%E5%8D%95%E6%A8%A1%E6%8B%9F/" rel="tag">简单模拟</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%93%9D%E7%89%99/" rel="tag">蓝牙</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%A7%A3%E5%8E%8B%E7%BC%A9/" rel="tag">解压缩</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%AE%A1%E7%AE%97%E5%99%A8/" rel="tag">计算器</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E8%BD%AF%E4%BB%B6/" rel="tag">软件</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/" rel="tag">黑苹果</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/BCM94352HMB/" style="font-size: 10px;">BCM94352HMB</a> <a href="/tags/Big-Sur/" style="font-size: 10px;">Big Sur</a> <a href="/tags/C/" style="font-size: 18.57px;">C</a> <a href="/tags/Qt/" style="font-size: 10px;">Qt</a> <a href="/tags/c/" style="font-size: 20px;">c++</a> <a href="/tags/debian10/" style="font-size: 10px;">debian10</a> <a href="/tags/excel/" style="font-size: 10px;">excel</a> <a href="/tags/git/" style="font-size: 11.43px;">git</a> <a href="/tags/hexo/" style="font-size: 11.43px;">hexo</a> <a href="/tags/kindle/" style="font-size: 10px;">kindle</a> <a href="/tags/linux/" style="font-size: 10px;">linux</a> <a href="/tags/macOS/" style="font-size: 10px;">macOS</a> <a href="/tags/powershell/" style="font-size: 10px;">powershell</a> <a href="/tags/python/" style="font-size: 11.43px;">python</a> <a href="/tags/vscode/" style="font-size: 12.86px;">vscode</a> <a href="/tags/%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" style="font-size: 10px;">二分查找</a> <a href="/tags/%E5%88%B7%E9%A2%98/" style="font-size: 17.14px;">刷题</a> <a href="/tags/%E5%A4%A7%E5%AD%A6%E8%AF%BE%E7%A8%8B/" style="font-size: 10px;">大学课程</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 11.43px;">工具</a> <a href="/tags/%E6%96%B0%E6%89%8B/" style="font-size: 15.71px;">新手</a> <a href="/tags/%E6%99%AE%E5%8F%8A/" style="font-size: 14.29px;">普及</a> <a href="/tags/%E6%B4%9B%E8%B0%B7/" style="font-size: 17.14px;">洛谷</a> <a href="/tags/%E7%AE%80%E5%8D%95%E6%A8%A1%E6%8B%9F/" style="font-size: 14.29px;">简单模拟</a> <a href="/tags/%E7%AE%97%E6%B3%95/" style="font-size: 10px;">算法</a> <a href="/tags/%E8%93%9D%E7%89%99/" style="font-size: 10px;">蓝牙</a> <a href="/tags/%E8%A7%A3%E5%8E%8B%E7%BC%A9/" style="font-size: 10px;">解压缩</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E5%99%A8/" style="font-size: 10px;">计算器</a> <a href="/tags/%E8%BD%AF%E4%BB%B6/" style="font-size: 10px;">软件</a> <a href="/tags/%E9%BB%91%E8%8B%B9%E6%9E%9C/" style="font-size: 10px;">黑苹果</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/12/">December 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/10/">October 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/11/">November 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/10/">October 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/09/">September 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/07/">July 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/06/">June 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2020/12/07/2020-12-07-%E8%81%94%E6%83%B3M73%E9%BB%91%E8%8B%B9%E6%9E%9CBig_Sur%E4%BD%BF%E7%94%A8BCM94352HMB%E7%BD%91%E5%8D%A1%E7%9A%84%E8%93%9D%E7%89%99%E9%97%AE%E9%A2%98/">联想M73黑苹果Big Sur使用BCM94352HMB网卡的蓝牙问题</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/07/2020-10-07-VSCode%E7%9A%84C++%E7%8E%AF%E5%A2%83%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE%E3%80%90%E9%9B%B6%E5%9F%BA%E7%A1%80%E7%89%88%E3%80%91/">VSCode的C++环境基础配置【零基础版】</a>
+          </li>
+        
+          <li>
+            <a href="/2020/10/07/2020-10-07-%E8%A7%A3%E5%8E%8B%E7%BC%A9%E8%BD%AF%E4%BB%B6%E7%9A%84%E9%80%89%E6%8B%A9%E4%B8%8E%E5%AE%89%E8%A3%85%E3%80%90%E9%9B%B6%E5%9F%BA%E7%A1%80%E7%89%88%E3%80%91/">解压缩软件的选择与安装【零基础版】</a>
+          </li>
+        
+          <li>
+            <a href="/2020/01/07/2020-01-07-Qt(C++)%E5%AE%9E%E7%8E%B0%E7%9A%84%E7%AE%80%E6%98%93%E8%AE%A1%E7%AE%97%E5%99%A8/">Qt(C++)实现的简易计算器</a>
+          </li>
+        
+          <li>
+            <a href="/2019/11/07/2019-11-07-debian10%E6%90%AD%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%99%A8git%E4%BB%93%E5%BA%93/">debian10搭建服务器git仓库</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2020 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.4.1.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
